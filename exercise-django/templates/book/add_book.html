@@ -1,0 +1,46 @@
+{% extends 'book/base.html'  %}
+
+{% block title %}Create Book | Store.com{% endblock %}
+
+{% block content %}
+<form action="{% url 'book-add' %}" method="POST"  class="bg-danger p-5" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="id_title">Title:</label>
+    <input type="text" class="form-control" name="title" maxlength="100" required="" id="id_title">
+  </div>
+
+  <div class="form-group">
+    <label for="id_image">Image:</label>
+    <input type="file" class="form-control-file" name="image" accept="image/*" required="" id="id_image">
+  </div>
+
+  <div class="form-group">
+    <label for="id_price">Price:</label>
+    <input type="text" class="form-control" name="price" maxlength="20" required="" id="id_price">
+  </div>
+
+  <div class="form-group">
+    <label for="id_author">Author:</label>
+    <select name="author" class="form-control" required="" id="id_author" multiple="">
+      {%  for author in authors %}
+        <option value="{{ author.id }}">{{ author.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="id_publisher">Publisher:</label>
+    <select name="publisher" class="form-control" required="" id="id_publisher">
+      <option value="" selected="">---------</option>
+      {%  for publisher in publishers %}
+        <option value="{{ publisher.id }}">{{ publisher.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+
+  <button type="submit" class="btn btn-primary btn-block">Create</button>
+</form>
+{% endblock %}
